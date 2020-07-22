@@ -759,8 +759,7 @@ class AssetsAudioPlayer {
 
   Future<void> _openPlaylistCurrent(
       {bool autoStart = true, Duration seek}) async {
-    if (_playlist != null && _isBuffering.value) {
-      stop();
+    if (_playlist != null && _isBuffering.value == false) {
       return _open(
         _playlist.currentAudio(),
         forcedVolume: _playlist.volume,
@@ -1194,6 +1193,7 @@ class AssetsAudioPlayer {
   Future<void> play() async {
     if (_isLiveStream) {
       //on livestream, it re-open the media to be live and not on buffer
+      await _stop();
       await _openPlaylistCurrent();
     } else {
       if (_stopped) {
