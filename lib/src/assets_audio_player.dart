@@ -1192,6 +1192,7 @@ class AssetsAudioPlayer {
   ///
   Future<void> play() async {
     if (_isLiveStream) {
+      _stop();
       //on livestream, it re-open the media to be live and not on buffer
       await _openPlaylistCurrent();
     } else {
